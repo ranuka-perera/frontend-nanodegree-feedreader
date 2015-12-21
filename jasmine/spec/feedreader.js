@@ -4,6 +4,9 @@
  * all of the tests that will be run against your application.
  */
 
+// Setting the timeout to be higher for people with bad connections.
+jasmine.DEFAULT_TIMEOUT_INTERVAL = 30000;
+
 /* We're placing all of our tests within the $() function,
  * since some of these tests may require DOM elements. We want
  * to ensure they don't run until the DOM is ready.
@@ -48,26 +51,54 @@ $(function() {
             expect($('body')).toHaveClass('menu-hidden');
         });
 
-         /* TODO: Write a test that ensures the menu changes
-          * visibility when the menu icon is clicked. This test
-          * should have two expectations: does the menu display when
-          * clicked and does it hide when clicked again.
-          */
-
-    /* TODO: Write a new test suite named "Initial Entries" */
-
-        /* TODO: Write a test that ensures when the loadFeed
-         * function is called and completes its work, there is at least
-         * a single .entry element within the .feed container.
-         * Remember, loadFeed() is asynchronous so this test wil require
-         * the use of Jasmine's beforeEach and asynchronous done() function.
-         */
-
-    /* TODO: Write a new test suite named "New Feed Selection"
-
-        /* TODO: Write a test that ensures when a new feed is loaded
-         * by the loadFeed function that the content actually changes.
-         * Remember, loadFeed() is asynchronous.
-         */
+        it('shows and hides when it is clicked', function () {
+            $burger = $('.menu-icon-link');
+            $burger.click();
+            expect($('body')).not.toHaveClass('menu-hidden');
+            $burger.click();
+            expect($('body')).toHaveClass('menu-hidden');
+        });
     });
+
+    describe('Initial Entries', function () {
+
+        beforeEach(function (done) {
+            // Although init() calls loadFeed(0) before the test's loadFeed() is done, the test's loadFeed() returns
+            // first.
+            loadFeed(0, done);
+        });
+
+        it('gets populated', function (done) {
+            // Check that the number of entries populated are greater than 0.
+            var feedL = $('.feed .entry').length;
+            expect(feedL).toBeGreaterThan(0);
+            done();
+        })
+
+    });
+
+    describe('New Feed Selection', function () {
+        var contentHtml;
+
+        beforeEach(function (done) {
+            // Load feed 0, then save content, then load feed 1 before proceeding to test case.
+            loadFeed(0, function () {
+                contentHtml = $('.feed').html();
+                loadFeed(1, done);
+            });
+        });
+
+        afterAll(function () {
+            // Load feed(0) in end because we commented out the init.
+            loadFeed(0);
+        });
+
+        it('loads content', function (done) {
+            expect($('.feed').html()).not.toContainHtml(contentHtml);
+            done();
+        });
+
+    });
+
+
 }());
