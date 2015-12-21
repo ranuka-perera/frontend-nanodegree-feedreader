@@ -1,0 +1,19 @@
+{
+  "name": "feedreader-jasmine-testing",
+  "version": "1.0.0",
+  "description": "Testing with jasmine",
+  "main": "index.html",
+  "scripts": {
+    "test": "index.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com-udacity:ranuka-perera/frontend-nanodegree-feedreader.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-gh-pages": "^0.5.4"
+  }
+}
