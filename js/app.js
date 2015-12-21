@@ -29,7 +29,7 @@ var allFeeds = [
  */
 function init() {
     // Load the first feed we've defined (index of 0).
-    loadFeed(0);
+    //loadFeed(0);
 }
 
 /* This function performs everything necessary to load a
@@ -49,6 +49,7 @@ function init() {
        url: 'https://rsstojson.udacity.com/parseFeed',
        data: JSON.stringify({url: feedUrl}),
        contentType:"application/json",
+       crossDomain: true,
        success: function (result, status){
 
                  var container = $('.feed'),
