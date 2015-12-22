@@ -13,4 +13,7 @@ Test cases were implemented in the application itself. The test results are show
 
 ## How to check it out?
 
-Go to <https://ranuka-perera.github.io/frontend-nanodegree-feedreader/index.html>.
+There are multiple ways to check it out.
+
+- Go to <https://ranuka-perera.github.io/frontend-nanodegree-feedreader/index.html> and check it out online.
+- Clone the repository and open index.html.
